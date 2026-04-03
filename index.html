@@ -18,7 +18,6 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -27,17 +26,20 @@
       color: var(--dark);
       font-weight: 300;
       overflow-x: hidden;
+      padding-top: 40px;
     }
+
+    img, svg { max-width: 100%; height: auto; }
 
     /* ── NAV ── */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 40px; left: 0; right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 22px 48px;
+      padding: 18px 48px;
       background: rgba(247,243,238,0.92);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--light-line);
@@ -55,6 +57,9 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       color: var(--dark);
+      line-height: 1;
+      position: relative;
+      z-index: 102;
     }
 
     .nav-logo span { color: var(--accent); }
@@ -63,6 +68,7 @@
       display: flex;
       gap: 36px;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
@@ -86,14 +92,55 @@
       transition: background 0.2s !important;
     }
 
-    .nav-cta:hover { background: var(--accent) !important; color: var(--cream) !important; }
+    .nav-cta:hover {
+      background: var(--accent) !important;
+      color: var(--cream) !important;
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--light-line);
+      background: rgba(255,255,255,0.6);
+      color: var(--dark);
+      border-radius: 2px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 102;
+    }
+
+    .nav-toggle span,
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: var(--dark);
+      position: relative;
+      transition: 0.25s ease;
+      content: "";
+    }
+
+    .nav-toggle span::before { position: absolute; top: -6px; }
+    .nav-toggle span::after { position: absolute; top: 6px; }
+
+    .nav-toggle.active span { background: transparent; }
+    .nav-toggle.active span::before { top: 0; transform: rotate(45deg); }
+    .nav-toggle.active span::after { top: 0; transform: rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+    }
 
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding-top: 80px;
+      padding-top: 82px;
     }
 
     .hero-left {
@@ -102,6 +149,7 @@
       justify-content: center;
       padding: 80px 64px 80px 80px;
       animation: fadeUp 0.8s 0.2s ease both;
+      min-width: 0;
     }
 
     @keyframes fadeUp {
@@ -126,6 +174,7 @@
       letter-spacing: -0.02em;
       color: var(--dark);
       margin-bottom: 24px;
+      max-width: 12ch;
     }
 
     .hero-title em {
@@ -151,6 +200,7 @@
     .btn-primary {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       background: var(--accent);
       color: #fff;
@@ -161,6 +211,7 @@
       text-decoration: none;
       letter-spacing: 0.04em;
       transition: background 0.2s, transform 0.15s;
+      text-align: center;
     }
 
     .btn-primary:hover {
@@ -189,9 +240,13 @@
       margin-top: 56px;
       padding-top: 32px;
       border-top: 1px solid var(--light-line);
+      flex-wrap: wrap;
     }
 
-    .trust-item { text-align: left; }
+    .trust-item {
+      text-align: left;
+      min-width: 110px;
+    }
 
     .trust-num {
       font-family: 'Playfair Display', serif;
@@ -207,6 +262,7 @@
       color: var(--mid);
       margin-top: 4px;
       letter-spacing: 0.04em;
+      line-height: 1.4;
     }
 
     /* Hero right — visual */
@@ -215,6 +271,7 @@
       background: var(--dark);
       overflow: hidden;
       animation: fadeIn 1s 0.4s ease both;
+      min-width: 0;
     }
 
     @keyframes fadeIn {
@@ -274,9 +331,9 @@
     .hero-right-sub {
       font-size: 14px;
       opacity: 0.75;
+      line-height: 1.5;
     }
 
-    /* Large brush stroke decoration */
     .brush-circle {
       position: absolute;
       top: 15%;
@@ -322,7 +379,7 @@
 
     .leist-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 2px;
       background: var(--light-line);
       border: 1px solid var(--light-line);
@@ -333,6 +390,7 @@
       padding: 40px 36px;
       transition: background 0.2s;
       cursor: default;
+      min-width: 0;
     }
 
     .leist-card:hover { background: var(--dark); }
@@ -375,10 +433,10 @@
 
     .about-left {
       padding: 100px 80px;
+      min-width: 0;
     }
 
     .about-left .section-eyebrow { color: var(--accent-light); }
-
     .about-left .section-title { color: var(--cream); }
 
     .about-text {
@@ -403,6 +461,7 @@
       gap: 12px;
       font-size: 15px;
       color: rgba(247,243,238,0.85);
+      line-height: 1.6;
     }
 
     .about-list li::before {
@@ -420,6 +479,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      min-width: 0;
     }
 
     .about-pattern {
@@ -443,6 +503,7 @@
       color: var(--accent);
       line-height: 1;
       opacity: 0.9;
+      word-break: break-word;
     }
 
     .about-big-label {
@@ -450,6 +511,7 @@
       color: rgba(247,243,238,0.6);
       margin-top: 8px;
       letter-spacing: 0.06em;
+      line-height: 1.6;
     }
 
     .innung-badge {
@@ -464,6 +526,9 @@
       font-size: 12px;
       color: var(--accent-light);
       letter-spacing: 0.05em;
+      text-align: left;
+      line-height: 1.4;
+      flex-wrap: wrap;
     }
 
     /* ── KONTAKT ── */
@@ -516,12 +581,16 @@
       font-size: 16px;
       font-weight: 400;
       color: var(--dark);
+      line-height: 1.5;
+      word-break: break-word;
     }
 
     .contact-info-sub {
       font-size: 13px;
       color: var(--mid);
       margin-top: 2px;
+      line-height: 1.5;
+      word-break: break-word;
     }
 
     .contact-form {
@@ -563,6 +632,8 @@
       background: #fff;
       outline: none;
       transition: border-color 0.2s;
+      width: 100%;
+      min-width: 0;
     }
 
     .form-group input:focus,
@@ -571,7 +642,10 @@
       border-color: var(--accent);
     }
 
-    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
 
     .form-submit {
       width: 100%;
@@ -600,6 +674,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 24px;
       font-size: 13px;
     }
 
@@ -612,9 +687,15 @@
     footer a {
       color: rgba(247,243,238,0.5);
       text-decoration: none;
+      line-height: 1.6;
+      word-break: break-word;
     }
 
     footer a:hover { color: var(--accent); }
+
+    .footer-right {
+      text-align: right;
+    }
 
     /* ── DIVIDER ── */
     .divider {
@@ -624,20 +705,346 @@
     }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .hero-left { padding: 70px 40px 70px 48px; }
+      .section,
+      .contact-section,
+      .about-left { padding-left: 48px; padding-right: 48px; }
+      footer { padding: 36px 48px; }
+      .divider { margin: 0 48px; }
+      .hero-right-content { left: 32px; right: 32px; bottom: 32px; }
+    }
+
     @media (max-width: 900px) {
-      nav { padding: 18px 24px; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
-      .hero-left { padding: 60px 24px 60px; }
-      .section { padding: 60px 24px; }
-      .leist-grid { grid-template-columns: 1fr; }
-      .about-section { grid-template-columns: 1fr; }
-      .about-right { min-height: 240px; }
-      .contact-section { grid-template-columns: 1fr; gap: 48px; padding: 60px 24px; }
-      .form-row { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 24px; }
-      .divider { margin: 0 24px; }
+      nav {
+        padding: 14px 20px;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        position: fixed;
+        top: 100px;
+        left: 0;
+        right: 0;
+        background: rgba(247,243,238,0.98);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--light-line);
+        padding: 8px 20px 18px;
+        transform: translateY(-12px);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.25s ease;
+        z-index: 99;
+      }
+
+      .mobile-nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .mobile-nav a {
+        text-decoration: none;
+        color: var(--dark);
+        font-size: 14px;
+        font-weight: 500;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--light-line);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .mobile-nav a:last-child {
+        border-bottom: none;
+      }
+
+      .mobile-nav .mobile-cta {
+        color: var(--accent);
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-right {
+        display: none;
+      }
+
+      .hero-left {
+        padding: 54px 20px 56px;
+      }
+
+      .hero-title {
+        font-size: clamp(34px, 11vw, 48px);
+        margin-bottom: 18px;
+        max-width: 100%;
+      }
+
+      .hero-text {
+        max-width: 100%;
+        font-size: 15px;
+        margin-bottom: 30px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+      }
+
+      .btn-secondary {
+        justify-content: center;
+        padding: 14px 16px;
+        border: 1px solid var(--accent);
+        border-bottom: 1px solid var(--accent);
+      }
+
+      .hero-trust {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+        margin-top: 34px;
+        padding-top: 24px;
+      }
+
+      .trust-item {
+        min-width: 0;
+      }
+
+      .section {
+        padding: 64px 20px;
+      }
+
+      .section-sub {
+        margin-bottom: 34px;
+        font-size: 15px;
+      }
+
+      .leist-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .leist-card {
+        padding: 28px 22px;
+      }
+
+      .about-section {
+        grid-template-columns: 1fr;
+      }
+
+      .about-left {
+        padding: 64px 20px;
+      }
+
+      .about-right {
+        min-height: 260px;
+      }
+
+      .about-center-text {
+        padding: 28px 20px;
+      }
+
+      .about-big-num {
+        font-size: clamp(48px, 16vw, 78px);
+      }
+
+      .contact-section {
+        grid-template-columns: 1fr;
+        gap: 42px;
+        padding: 64px 20px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        padding: 28px 20px;
+      }
+
+      .footer-right {
+        text-align: left;
+      }
+
+      .divider {
+        margin: 0 20px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      body { padding-top: 40px; }
+
+      nav {
+        top: 40px;
+        padding: 12px 16px;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+      }
+
+      .mobile-nav {
+        top: 93px;
+        padding: 8px 16px 16px;
+      }
+
+      .hero-left {
+        padding: 46px 16px 48px;
+      }
+
+      .hero-eyebrow,
+      .section-eyebrow {
+        font-size: 10px;
+        letter-spacing: 0.14em;
+      }
+
+      .hero-title {
+        font-size: clamp(30px, 10.5vw, 40px);
+        line-height: 1.08;
+      }
+
+      .hero-text,
+      .about-text,
+      .section-sub {
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .btn-primary {
+        padding: 15px 20px;
+        font-size: 13px;
+      }
+
+      .btn-secondary {
+        font-size: 13px;
+      }
+
+      .hero-trust {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .trust-num {
+        font-size: 24px;
+      }
+
+      .trust-label {
+        font-size: 10px;
+      }
+
+      .section {
+        padding: 56px 16px;
+      }
+
+      .section-title {
+        font-size: clamp(26px, 9vw, 34px);
+      }
+
+      .leist-card {
+        padding: 24px 18px;
+      }
+
+      .leist-title {
+        font-size: 18px;
+      }
+
+      .leist-text {
+        font-size: 13px;
+      }
+
+      .about-left,
+      .contact-section {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .about-right {
+        min-height: 220px;
+      }
+
+      .about-big-label {
+        font-size: 14px;
+      }
+
+      .contact-info-item {
+        gap: 14px;
+        margin-bottom: 24px;
+        padding-bottom: 24px;
+      }
+
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+
+      .contact-info-val {
+        font-size: 15px;
+      }
+
+      .contact-info-sub {
+        font-size: 12px;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        font-size: 14px;
+        padding: 13px 14px;
+      }
+
+      .form-submit {
+        padding: 16px;
+        font-size: 13px;
+      }
+
+      footer {
+        padding: 24px 16px;
+        font-size: 12px;
+      }
+
+      footer strong {
+        font-size: 15px;
+      }
+
+      .divider {
+        margin: 0 16px;
+      }
+
+      .demo-text {
+        display: none;
+      }
+
+      .demo-cta {
+        padding: 0 14px;
+        font-size: 10px;
+      }
+
+      #demo-corner {
+        right: 12px;
+        bottom: 12px;
+        max-width: 150px;
+        padding: 7px 10px;
+      }
     }
 
     /* ── DEMO WASSERZEICHEN ── */
@@ -645,7 +1052,11 @@
       position: fixed; inset: 0;
       pointer-events: none; z-index: 9998; overflow: hidden;
     }
-    #demo-wm-bg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    #demo-wm-bg svg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+    }
+
     #demo-banner {
       position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
       pointer-events: none;
@@ -655,6 +1066,7 @@
       display: flex; align-items: stretch;
       font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     }
+
     .demo-label {
       background: #ff6400; color: #fff;
       font-size: 11px; font-weight: 700;
@@ -662,18 +1074,27 @@
       padding: 0 18px; display: flex; align-items: center; gap: 7px;
       flex-shrink: 0;
     }
+
     .demo-label::before {
-      content: ''; width: 7px; height: 7px;
+      content: '';
+      width: 7px; height: 7px;
       background: #fff; border-radius: 50%;
       animation: pulse 1.8s ease-in-out infinite;
     }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+    @keyframes pulse {
+      0%,100%{opacity:1;transform:scale(1)}
+      50%{opacity:.4;transform:scale(.7)}
+    }
+
     .demo-text {
       color: #aaa; font-size: 11.5px;
       padding: 0 16px; display: flex; align-items: center;
-      flex: 1; white-space: nowrap;
+      flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
+
     .demo-text strong { color: #e8e8e8; font-weight: 600; }
+
     .demo-cta {
       background: transparent; border: none;
       border-left: 1px solid #3a3a3a;
@@ -684,7 +1105,9 @@
       white-space: nowrap; transition: background 0.2s;
       font-family: inherit;
     }
+
     .demo-cta:hover { background: rgba(255,100,0,.12); }
+
     #demo-corner {
       position: fixed; bottom: 20px; right: 20px;
       z-index: 9999; pointer-events: none;
@@ -695,8 +1118,11 @@
       font-size: 10.5px; color: #888; line-height: 1.5;
       backdrop-filter: blur(4px); max-width: 200px;
     }
-    #demo-corner span { display:block; color:#ff6400; font-weight:700; font-size:10px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:2px; }
-    body { padding-top: 40px; }
+
+    #demo-corner span {
+      display:block; color:#ff6400; font-weight:700; font-size:10px;
+      letter-spacing:.1em; text-transform:uppercase; margin-bottom:2px;
+    }
   </style>
 </head>
 <body>
@@ -704,12 +1130,23 @@
   <!-- NAV -->
   <nav>
     <div class="nav-logo">Maler<span>hegmanns</span></div>
+
     <ul class="nav-links">
       <li><a href="#leistungen">Leistungen</a></li>
       <li><a href="#ueber-uns">Über uns</a></li>
       <li><a href="#kontakt" class="nav-cta">Angebot anfragen</a></li>
     </ul>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
+      <span></span>
+    </button>
   </nav>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#ueber-uns">Über uns</a>
+    <a href="#kontakt" class="mobile-cta">Angebot anfragen</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -745,6 +1182,7 @@
         </div>
       </div>
     </div>
+
     <div class="hero-right">
       <div class="brush-circle"></div>
       <div class="hero-bg-pattern"></div>
@@ -919,7 +1357,7 @@
       <strong>Malerhegmanns</strong><br>
       Niederkasseler Lohweg 40 · 40547 Düsseldorf
     </div>
-    <div style="text-align:right;">
+    <div class="footer-right">
       <a href="tel:+4921152028610">0211 52028610</a><br>
       <a href="mailto:malerhegmanns@t-online.de">malerhegmanns@t-online.de</a>
     </div>
@@ -954,6 +1392,25 @@
     <span>Demo-Entwurf</span>
     Nicht öffentlich indexiert. Erstellt als Vorschlag.
   </div>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const mobileNav = document.getElementById('mobileNav');
+
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      mobileNav.classList.toggle('active');
+      navToggle.setAttribute('aria-expanded', navToggle.classList.contains('active') ? 'true' : 'false');
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        mobileNav.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
 
 </body>
 </html>
